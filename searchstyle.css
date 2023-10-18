@@ -1,0 +1,74 @@
+body {
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	-webkit-animation: gradient 15s ease infinite;
+	        animation: gradient 15s ease infinite;
+	height: 100vh;
+}
+
+@-webkit-keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+#search-form {
+	border-radius: 10px;
+	padding: 10px; /* Reduced padding */
+	-webkit-backdrop-filter: blur(5px);
+	        backdrop-filter: blur(5px); /* Frosted glass effect */
+	text-align: center;
+}
+
+#search-input {
+	width: 40%; /* Reduced width */
+	padding: 12px 8px; /* Adjusted padding for extra height */
+	border: none;
+	border-radius: 5px;
+	font-size: 14px; /* Reduced font size */
+	background: rgba(255, 255, 255, 0.5); /* Frosted glass input background */
+}
+
+#search-input::-moz-placeholder {
+	color: rgba(255, 255, 255, 0.8); /* Adjust the placeholder text color */
+}
+
+#search-input:-ms-input-placeholder {
+	color: rgba(255, 255, 255, 0.8); /* Adjust the placeholder text color */
+}
+
+#search-input::placeholder {
+	color: rgba(255, 255, 255, 0.8); /* Adjust the placeholder text color */
+}
+
+#search-input:focus {
+	outline: none;
+}
+
+button {
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+img {
+	width: 30px; /* Increase the width for a larger icon */
+	height: 30px; /* Increase the height for a larger icon */
+}

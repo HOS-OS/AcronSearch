@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Acron Search</title>
+    <title>Acorn Search</title>
     <link rel = "icon" href =  
     "https://github.com/HOS-OS/AcronSearch/blob/8243fead703b6230000f0b8b8acca645dc65db7b/search.png" 
             type = "image/x-icon"> 
     <style>
+    <style>
         body {
             margin: 0;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url("your-background-image.jpg") center/cover no-repeat fixed;
         }
 
         #imageContainer {
@@ -27,13 +33,13 @@
 
         #controls {
             position: absolute;
-            bottom: 20px; /* Move to the bottom of the screen */
-            right: 20px; /* Move to the right of the screen */
+            bottom: 20px;
+            right: 20px;
             z-index: 1;
         }
 
         #saveButton {
-            background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
+            background-color: rgba(0, 0, 0, 0.2);
             color: #fff;
             border: none;
             border-radius: 50%;
@@ -44,7 +50,7 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            backdrop-filter: blur(5px); /* Frosted glass effect */
+            backdrop-filter: blur(5px);
         }
 
         /* Style the file input to hide the file name */
@@ -57,15 +63,57 @@
         }
 
         #uploadButton {
-            background: none; /* Remove the background */
+            background: none;
             color: #fff;
-            padding: 20px; /* Slightly larger padding */
+            padding: 20px;
             border: none;
             cursor: pointer;
-            border-radius: 50%; /* Round like a circle */
-            font-size: 40px; /* Increase font size */
-            backdrop-filter: blur(5px); /* Frosted glass effect */
+            border-radius: 50%;
+            font-size: 40px;
+            backdrop-filter: blur(5px);
         }
+
+        .searchform {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 10px
+  width: 8px; /* Adjust the width as desired */
+}
+
+input {
+  border: none;
+  outline: none;
+  background: rgba(84, 84, 84, 0.515); /* Transparent white background for the input */
+  padding: 15px 100px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  width: 300px;
+  color: black; /* Set the text color to black */
+  font-size: 15px;
+  
+}
+
+input::placeholder {
+        color: #d2cfcfd2; /* Set the placeholder color to a darker shade, e.g., #333 */
+}
+input[type="text"]:focus {
+  outline: none;
+}
+
+.button {
+    font-size: 15px;
+  padding: 15px 16px;
+  border: none;
+  margin-left: -4px;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  color: #000000;
+  background: rgba(84, 84, 84, 0.515);
+}
+        
     </style>
 </head>
 <body>
@@ -76,10 +124,17 @@
         <input type="file" id="imageInput" accept="image/*">
         <label for="imageInput" id="uploadButton">&#9881;</label>
     </div>
+    <!-- Add the frosted glass search form here -->
+    <form action="https://duckduckgo.com?q=" class="searchform" method="get" name="searchform">
+        <input name="sitesearch" type="hidden" value="">
+        <input autocomplete="on" class="form-control search" name="q" placeholder="Search anything" required="required" type="text">
+        <button class="button" type="submit">Search</button>
+    </form>
     <script>
         const imageInput = document.getElementById('imageInput');
         const uploadedImage = document.getElementById('uploadedImage');
         const saveButton = document.getElementById('saveButton');
+        const searchForm = document.getElementById('search-form');
 
         imageInput.addEventListener('change', () => {
             const file = imageInput.files[0];

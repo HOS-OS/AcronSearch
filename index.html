@@ -1,26 +1,118 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Acorn Search</title>
-<link rel="icon" type="image/png" href="./search.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'><link rel="stylesheet" href="./searchstyle.css">
+    <title>Acron Search</title>
+    <link rel = "icon" href =  
+    "https://github.com/HOS-OS/AcronSearch/blob/8243fead703b6230000f0b8b8acca645dc65db7b/search.png" 
+            type = "image/x-icon"> 
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
 
+        #imageContainer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #imageContainer img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #controls {
+            position: absolute;
+            bottom: 20px; /* Move to the bottom of the screen */
+            right: 20px; /* Move to the right of the screen */
+            z-index: 1;
+        }
+
+        #saveButton {
+            background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            backdrop-filter: blur(5px); /* Frosted glass effect */
+        }
+
+        /* Style the file input to hide the file name */
+        #imageInput {
+            position: absolute;
+            opacity: 0;
+            height: 100%;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        #uploadButton {
+            background: none; /* Remove the background */
+            color: #fff;
+            padding: 20px; /* Slightly larger padding */
+            border: none;
+            cursor: pointer;
+            border-radius: 50%; /* Round like a circle */
+            font-size: 40px; /* Increase font size */
+            backdrop-filter: blur(5px); /* Frosted glass effect */
+        }
+    </style>
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<div class="d-flex flex-column justify-content-center w-100 h-100">
+    <div id="imageContainer">
+        <img id="uploadedImage" src="" alt="Uploaded Image">
+    </div>
+    <div id="controls">
+        <input type="file" id="imageInput" accept="image/*">
+        <label for="imageInput" id="uploadButton">&#9881;</label>
+    </div>
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const uploadedImage = document.getElementById('uploadedImage');
+        const saveButton = document.getElementById('saveButton');
 
-	<body>
-		<form id="search-form" action="https://duckduckgo.com/" method="get">
-			<input type="text" id="search-input" name="q" placeholder="Type anything to search">
-			<button type="submit">
-				<img src="./search.png" alt="Search">
-			</button>
-		</form>
-	</body>
-<!-- partial -->
-  
+        imageInput.addEventListener('change', () => {
+            const file = imageInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function () {
+                    const base64Image = reader.result;
+                    uploadedImage.src = base64Image;
+                    localStorage.setItem('savedImage', base64Image);
+
+                    // Use Color Thief to get the dominant color
+                    const colorThief = new ColorThief();
+                    const dominantColor = colorThief.getColor(uploadedImage);
+
+                    // Set the button background color based on the dominant color
+                    saveButton.style.backgroundColor = `rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]})`;
+
+                    // Calculate the brightness of the background color
+                    const brightness = (dominantColor[0] * 299 + dominantColor[1] * 587 + dominantColor[2] * 114) / 1000;
+
+                    // Set the text color based on brightness for better visibility
+                    saveButton.style.color = brightness > 128 ? '#000' : '#fff';
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        const savedImage = localStorage.getItem('savedImage');
+        if (savedImage) {
+            uploadedImage.src = savedImage;
+        }
+    </script>
 </body>
 </html>
